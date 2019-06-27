@@ -18,7 +18,7 @@ export default class MenuComponent extends Component {
                     <Card onClick={()=>this.onDishCLickHandler(dish)}>
                         <CardImg width="100%" src={dish.image} alt={dish.image}></CardImg>
                         <CardImgOverlay>
-                            <CardTitle>{dish.name}</CardTitle>
+                            <CardTitle className="font-weight-bold">{dish.name}</CardTitle>
                         </CardImgOverlay>
                     </Card>
                 </div>

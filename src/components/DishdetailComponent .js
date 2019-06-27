@@ -23,11 +23,11 @@ export class DishdetailComponent  extends Component {
     renderDish(){
         return(
             <div className="row">
-                <div className="col-6 col-md-5 m-1">
+                <div className="col-xs-12 col-sm-12 col-md-5 m-1">
                     <Card>
                         <CardImg width="100%" src={this.props.dish.image} alt={this.props.dish.image}></CardImg>
                         <CardBody>
-                            <CardTitle>{this.props.dish.name}</CardTitle>
+                            <CardTitle className="font-weight-bold">{this.props.dish.name}</CardTitle>
                             <CardText>{this.props.dish.description}</CardText>
                         </CardBody>
                     </Card>
@@ -40,8 +40,8 @@ export class DishdetailComponent  extends Component {
         const comments = this.props.dish.comments.map((com) => {
             return (
                 <div key={com.id} >
-                    <div className="pb-2 w-95">{com.comment}</div>
-                    <div className="pb-2">-- {com.author} , {new Date(com.date). toDateString().split(' ').slice(1).join(' ')}</div>
+                    <div className="pb-2 list-unstyled">{com.comment}</div>
+                    <div className="pb-2">-- {com.author} , {new Date(com.date).toDateString().split(' ').slice(1).join(' ')}</div>
                 </div>
             )
         });
@@ -50,7 +50,7 @@ export class DishdetailComponent  extends Component {
         if(this.props.dish != null){
         
             return (
-                <div className="col-6 col-md-5 m-1 list-unstyled ">
+                <div className="col-xs-12 col-sm-12 col-md-5 m-1 list-unstyled ">
                     <h4>Comments</h4>
                     {comments}
 
