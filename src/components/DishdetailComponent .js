@@ -41,7 +41,7 @@ export class DishdetailComponent  extends Component {
             return (
                 <div key={com.id} >
                     <div className="pb-2 list-unstyled">{com.comment}</div>
-                    <div className="pb-2">-- {com.author} , {new Date(com.date).toDateString().split(' ').slice(1).join(' ')}</div>
+                    <div className="pb-2">-- {com.author} , {new Intl.DateTimeFormat('en-US',{year : 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(com.date)))}</div>
                 </div>
             )
         });
