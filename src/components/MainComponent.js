@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import MenuComponent from './MenuComponent';
-import { DISHES } from '../shared/dishes';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { COMMENTS } from '../shared/comments';
-import { PROMOTIONS } from '../shared/promotions';
+import { DISHES } from '../shared/dishes';
 import { LEADERS } from '../shared/leaders';
-import HeaderComponent from './HeaderComponent';
-import FooterComponent from './FooterComponent';
-import { Switch, Route, Redirect } from 'react-router-dom'
-import HomeComponent from './HomeComponent';
+import { PROMOTIONS } from '../shared/promotions';
+import AboutComponent from './AboutComponent';
 import ContactComponent from './ContactComponent';
 import DishdetailComponent from './DishdetailComponent ';
+import FooterComponent from './FooterComponent';
+import HeaderComponent from './HeaderComponent';
+import HomeComponent from './HomeComponent';
+import MenuComponent from './MenuComponent';
 
 
 class MainComponent extends Component {
@@ -37,8 +38,8 @@ class MainComponent extends Component {
 
     const DishWithId = ({ match }) => {
       return (
-        <DishdetailComponent dish={this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]} 
-        comments={this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))} 
+        <DishdetailComponent dish={this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId, 10))[0]}
+          comments={this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId, 10))}
         ></DishdetailComponent>
       )
     }
@@ -51,6 +52,7 @@ class MainComponent extends Component {
           <Route exact path="/menu" component={() => <MenuComponent dishes={this.state.dishes} />} />
           <Route path="/menu/:dishId" component={DishWithId} />
           <Route exact path="/contactus" component={ContactComponent} />
+          <Route exact path="/aboutus" component={() => <AboutComponent leaders={this.state.leaders} />} />
           <Redirect to="/home" />
         </Switch>
         <FooterComponent />
