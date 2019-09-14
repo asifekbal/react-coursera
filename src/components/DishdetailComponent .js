@@ -2,9 +2,26 @@ import React, { Component } from 'react';
 import { Control, Errors, LocalForm } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Button, Card, CardBody, CardImg, CardText, CardTitle, Col, Label, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
+import { LoadingComponent } from './LoadingComponent';
 
 export const DishdetailComponent = (props) => {
-    if (props.dish != null)
+    if (props.isLoading) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <LoadingComponent />
+                </div>
+            </div>
+        )
+    } else if (props.errMsg) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <h4>{props.errMsg}</h4>
+                </div>
+            </div>
+        )
+    } else if (props.dish != null)
         return (
             <div className="container">
                 <div className="row">
@@ -24,7 +41,7 @@ export const DishdetailComponent = (props) => {
                 <div className="row">
                     <RenderDish dish={props.dish}></RenderDish>
                     <RenderComments comments={props.comments} addComment={props.addComment}
-                    dishId={props.dish.id}></RenderComments>
+                        dishId={props.dish.id}></RenderComments>
                 </div>
             </div>);
     else
@@ -93,7 +110,7 @@ class CommentForm extends Component {
     handleSubmit(values) {
         this.toggleModal();
         console.log(this.props.dishId);
-        this.props.addComment(this.props.dishId, values.rating,values.author, values.comment);
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
