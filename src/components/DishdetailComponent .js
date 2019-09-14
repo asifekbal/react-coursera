@@ -23,7 +23,8 @@ export const DishdetailComponent = (props) => {
                 </div>
                 <div className="row">
                     <RenderDish dish={props.dish}></RenderDish>
-                    <RenderComments comments={props.comments}></RenderComments>
+                    <RenderComments comments={props.comments} addComment={props.addComment}
+                    dishId={props.dish.id}></RenderComments>
                 </div>
             </div>);
     else
@@ -46,7 +47,7 @@ function RenderDish({ dish }) {
     )
 }
 
-function RenderComments({ comments }) {
+function RenderComments({ comments, addComment, dishId }) {
     if (comments != null)
         return (
             <div className="col-xs-12 col-sm-12 col-md-5 m-1">
@@ -61,11 +62,11 @@ function RenderComments({ comments }) {
                         )
                     })}
                 </ul>
-                <CommentForm></CommentForm>
+                <CommentForm dishId={dishId} addComment={addComment}></CommentForm>
             </div>);
     else
         return (
-            <div><CommentForm></CommentForm></div>
+            <div><CommentForm dishId={dishId} addComment={addComment}></CommentForm></div>
         );
 }
 
@@ -90,9 +91,9 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        console.log("Current State is: " + JSON.stringify(values));
-        alert("Current State is: " + JSON.stringify(values));
         this.toggleModal();
+        console.log(this.props.dishId);
+        this.props.addComment(this.props.dishId, values.rating,values.author, values.comment);
     }
 
     render() {
