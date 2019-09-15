@@ -2,12 +2,13 @@ import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { LoadingComponent } from './LoadingComponent';
+import {baseUrl} from '../shared/baseUrl';
 
 function RenderMenuItem({ dish, onClick }) {
     return (
         <Card>
             <Link to={`/menu/${dish.id}`}>
-                <CardImg width="100%" src={dish.image} alt={dish.image}></CardImg>
+                <CardImg width="100%" src={baseUrl + dish.image} alt={dish.image}></CardImg>
                 <CardImgOverlay>
                     <CardTitle className="font-weight-bold">{dish.name}</CardTitle>
                 </CardImgOverlay>
@@ -50,7 +51,7 @@ const Menu = (props) => {
                         <BreadcrumbItem active>
                             Menu
                         </BreadcrumbItem>
-                    </Breadcrumb>
+                     </Breadcrumb>
                     <div className="col-12">
                         <h3>Menu</h3>
                         <hr />

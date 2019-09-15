@@ -3,6 +3,7 @@ import { Control, Errors, LocalForm } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, Button, Card, CardBody, CardImg, CardText, CardTitle, Col, Label, Modal, ModalBody, ModalHeader, Row } from 'reactstrap';
 import { LoadingComponent } from './LoadingComponent';
+import {baseUrl} from '../shared/baseUrl';
 
 export const DishdetailComponent = (props) => {
     if (props.isLoading) {
@@ -54,7 +55,7 @@ function RenderDish({ dish }) {
     return (
         <div className="col-xs-12 col-sm-12 col-md-5 m-1">
             <Card>
-                <CardImg top src={dish.image} alt={dish.image}></CardImg>
+                <CardImg top src={baseUrl + dish.image} alt={dish.image}></CardImg>
                 <CardBody>
                     <CardTitle className="font-weight-bold">{dish.name}</CardTitle>
                     <CardText>{dish.description}</CardText>
