@@ -10,6 +10,7 @@ import FooterComponent from './FooterComponent';
 import HeaderComponent from './HeaderComponent';
 import HomeComponent from './HomeComponent';
 import MenuComponent from './MenuComponent';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 
 const mapStoreToProps = state => {
@@ -39,7 +40,7 @@ class MainComponent extends Component {
   render() {
 
     const HomePage = () => {
-      return ( 
+      return (
         <HomeComponent dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
           dishesLoading={this.props.dishes.isLoading}
           dishesErrMess={this.props.dishes.errMess}
@@ -65,14 +66,18 @@ class MainComponent extends Component {
     return (
       <div>
         <HeaderComponent />
-        <Switch>
-          <Route path="/home" component={HomePage} />
-          <Route exact path="/menu" component={() => <MenuComponent dishes={this.props.dishes} />} />
-          <Route path="/menu/:dishId" component={DishWithId} />
-          <Route exact path="/contactus" component={() => <ContactComponent resetFeedbackForm={this.props.resetFeedbackForm} />} />
-          <Route exact path="/aboutus" component={() => <AboutComponent leaders={this.props.leaders} />} />
-          <Redirect to="/home" />
-        </Switch>
+        <TransitionGroup>
+          <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
+            <Switch>
+              <Route path="/home" component={HomePage} />
+              <Route exact path="/menu" component={() => <MenuComponent dishes={this.props.dishes} />} />
+              <Route path="/menu/:dishId" component={DishWithId} />
+              <Route exact path="/contactus" component={() => <ContactComponent resetFeedbackForm={this.props.resetFeedbackForm} />} />
+              <Route exact path="/aboutus" component={() => <AboutComponent leaders={this.props.leaders} />} />
+              <Redirect to="/home" />
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
         <FooterComponent />
       </div>
     );
