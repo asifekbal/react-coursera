@@ -1,15 +1,17 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
+import { LoadingComponent } from './LoadingComponent';
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
+import { Fade, Stagger } from 'react-animation-components';
 
 function AboutComponent(props) {
-
-    const leaders = props.leaders.map((leader) => {
+    const leaders = props.leaders.leaders.map(leader => {
         return (
-            <RenderLeader leader={leader}/>
+            <RenderLeader leader={leader} />
         );
     });
-    
+
     return (
         <div className="container">
             <div className="row">
@@ -66,28 +68,49 @@ function AboutComponent(props) {
                 </div>
                 <div className="col-12">
                     <Media list>
-                        {leaders}
+                        <RenderLeaders />
                     </Media>
                 </div>
             </div>
         </div>
     );
+
+    function RenderLeaders() {
+        if (props.leaders.isLoading) {
+            return <LoadingComponent />;
+        }
+        else if (props.leaders.errMess) {
+            return (
+                <h4>{props.leaders.errMess}</h4>
+            );
+        }
+        else return (
+            <Media list>
+                <Stagger in>
+                    {leaders}
+                </Stagger>
+            </Media>
+        );
+    }
 }
 
 function RenderLeader({ leader }) {
     return (
-        <div key={leader.id} className="col-12 mt-5">
-            <Media tag="li">
-                <Media left middle>
-                    <Media object src={leader.image} alt={leader.name}></Media>
+        <div key={baseUrl + leader.id} className="col-12 mt-5">
+
+            <Fade in>
+                <Media tag="li">
+                    <Media left middle>
+                        <Media object src={baseUrl + leader.image} alt={leader.name}></Media>
+                    </Media>
+                    <Media body className="ml-5">
+                        <Media heading>{leader.name}</Media>
+                        <Media title>{leader.designation}</Media>
+                        <br />
+                        <p>{leader.description}</p>
+                    </Media>
                 </Media>
-                <Media body className="ml-5">
-                    <Media heading>{leader.name}</Media>
-                    <Media title>{leader.designation}</Media>
-                    <br/>
-                    <p>{leader.description}</p>
-                </Media>
-            </Media>
+            </Fade>
         </div>
     )
 }
